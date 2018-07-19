@@ -44,7 +44,7 @@
                                 </div>
                             </c:forEach>  
                         </div>
-                        
+                        <!--?idPartie={jr.getPartie().id}-->
                         <div>
                             <a href="<c:url value="/JouerPartie"/>">
                             <input class="btnSubmit btnSubREjoindrePartie" type="button" value="Démarrer">

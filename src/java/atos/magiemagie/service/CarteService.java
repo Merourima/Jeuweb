@@ -26,7 +26,11 @@ public class CarteService {
     private JoueurDAO daoJr = new JoueurDAO();
     private CarteDAO daoCarte = new CarteDAO();
     
-        // cartes au hasard
+    public void supprimerCarteJr(long joueurID){
+         daoCarte.supprimerCarte(joueurID);
+    }
+    
+    // cartes au hasard
     public Carte distribuerCarte(long idJoueur) {
 
         //0. Récup joueur

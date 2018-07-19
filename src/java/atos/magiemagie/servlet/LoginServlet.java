@@ -5,6 +5,7 @@
  */
 package atos.magiemagie.servlet;
 
+import atos.magiemagie.dao.CarteDAO;
 import atos.magiemagie.dao.PartieDAO;
 import atos.magiemagie.entity.Joueur;
 import atos.magiemagie.entity.Partie;
@@ -29,7 +30,7 @@ public class LoginServlet extends HttpServlet {
     private JoueurService joueurservice = new JoueurService();
     private PartieService joueurPartie = new  PartieService();
     private PartieDAO partiedao = new PartieDAO();
-
+    
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
@@ -54,6 +55,8 @@ public class LoginServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+        //vider les cartes du jrs existe dans la bdd 
         
         Long idPartie = Long.parseLong(req.getParameter("idPartie"));
         req.getSession().setAttribute("idPartie", idPartie);
