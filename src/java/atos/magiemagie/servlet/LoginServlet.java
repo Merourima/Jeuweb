@@ -9,6 +9,7 @@ import atos.magiemagie.dao.CarteDAO;
 import atos.magiemagie.dao.PartieDAO;
 import atos.magiemagie.entity.Joueur;
 import atos.magiemagie.entity.Partie;
+import atos.magiemagie.service.CarteService;
 import atos.magiemagie.service.JoueurService;
 import atos.magiemagie.service.PartieService;
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class LoginServlet extends HttpServlet {
     private JoueurService joueurservice = new JoueurService();
     private PartieService joueurPartie = new  PartieService();
     private PartieDAO partiedao = new PartieDAO();
+    private CarteService joueurCarte= new  CarteService();
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,9 +47,18 @@ public class LoginServlet extends HttpServlet {
         Joueur joueur = joueurservice.rejoindrePartie(pseudo, idPartie, avatar);
         req.getSession().setAttribute("moi", joueur);
         
+        
+        if (joueur.getCartes().size() != 0) {
+            for (int i = 0; i < joueur.getCartes().size(); i++) {
+                joueurCarte.supprimerCarteJr(joueur.getId());
+
+            }
+        }
+        
         Partie p = partiedao.rechercherParID(idPartie);
         List<Joueur> jrDeLaPartie = p.getJoueurs();
         req.getSession().setAttribute("listeDesJoueurDePartie", jrDeLaPartie);
+        
         
         // ?????????????????????  Tester avant si nbrJR > 2  ???????????????????
         resp.sendRedirect("lister-joueur.jsp");

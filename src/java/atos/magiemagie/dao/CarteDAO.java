@@ -58,9 +58,19 @@ public class CarteDAO {
 
     public void supprimerCarte(long joueurID) {
             EntityManager em = Persistence.createEntityManagerFactory("AtelierMagieMagiePU").createEntityManager();
+            em.getTransaction().begin();
+            Carte carteJR = em.find(Carte.class,joueurID);
+            em.remove(carteJR);
+            em.getTransaction().commit();
             
-            //Carte carteJR = em.find()
+//           Query query = em.createQuery("DELETE FROM Carte c WHERE c IN (SELECT j FROM Joueur j JOIN j.cartes jc "
+//                   + "WHERE j.cartes=j.id)");
            
+//            Query query = em.createQuery("DELETE  from Carte c  JOIN c.joueur j where j.id=:jr");
+//            query.setParameter("jr", joueurID);
+//            
+//            Query query = em.createQuery(" select c from carte c");
+                   
            
 
     }
