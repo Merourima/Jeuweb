@@ -52,19 +52,18 @@
                                 </c:if>        
                             </c:forEach>
                         </div>
-                        
+                        <form method="POST" action="JouerPartie">
                         <div class = "fullLarge" >
                             <div class = "fullLarge ">
-                                <a href="<c:url value="/JouerPartie?actionParam=lancerSort"/>">  
-                                    <input class="floatRight" type="button" value="Lancer Sort" ${moi.getEtatjoueur().name() == "A_LA_MAIN" ? "": "disabled"}>
-                                </a><br>
+                                    <input class="floatRight" type="submit" name="lancerSort" value="Lancer Sort" ${moi.getEtatjoueur().name() == "A_LA_MAIN" ? "": "disabled"}>
+                                
                             </div>
                             <div class = "fullLarge ">
-                                <a href="<c:url value="/JouerPartie?actionParam=passerTour"/>"> 
-                                    <input class="floatRight" type="button" value="Passer Tour" ${moi.getEtatjoueur().name() == "A_LA_MAIN" ? "": "disabled"}></a>
+                                <input class="floatRight" type="submit" name="passerTour" value="Passer Tour" ${moi.getEtatjoueur().name() == "A_LA_MAIN" ? "": "disabled"}>
                             </div>
 
                         </div>
+                        </form>
                         
                         <div class="fullLarge design">
                             <div class=" avatar joueurBox">

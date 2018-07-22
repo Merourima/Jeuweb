@@ -27,6 +27,27 @@ public class JouerPartie extends HttpServlet {
     private CarteService carteService = new CarteService();
     private JoueurService joueurService = new JoueurService();
 
+      @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        Partie p = (Partie) req.getSession().getAttribute("partie");
+
+         
+        // Action
+        if(req.getParameter("passerTour")!= null){
+            
+             Joueur joueurALaMain = joueurService.determineJoueurQuiALaMainDansPArtie(p.getId());
+             carteService.distribuerCarte(joueurALaMain.getId());
+             partieService.passeJoueurSuivant(p.getId());
+             req.getSession().setAttribute("jrAlaMain",joueurALaMain);   
+        }
+        else if(req.getParameter("lancerSort")!= null){
+                //TODO
+            }
+            
+       resp.sendRedirect("JouerPartie");
+    }
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -37,19 +58,6 @@ public class JouerPartie extends HttpServlet {
            
         }
         
-         
-        // Action
-        if(req.getParameter("actionParam")!= null){
-            if("passerTour".equals(req.getParameter("actionParam"))){
-             Joueur joueurALaMain = joueurService.determineJoueurQuiALaMainDansPArtie(p.getId());
-             carteService.distribuerCarte(joueurALaMain.getId());
-             req.getSession().setAttribute("jrAlaMain",joueurALaMain);   
-            }else if("lancerSort".equals(req.getParameter("actionParam"))){
-                //TODO
-            }
-        }
-        req.getParameterMap().remove("actionParam");
-            
         // MAJ DE LA PARTIE
         p = partieService.recupererLaPartie(p.getId());
         req.getSession().setAttribute("partie", p);
