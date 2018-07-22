@@ -56,10 +56,10 @@ public class CarteDAO {
                 return em.find(Carte.class, idCarte1);
     }
 
-    public void supprimerCarte(long joueurID) {
+    public void supprimerCarte(long carteId) {
             EntityManager em = Persistence.createEntityManagerFactory("AtelierMagieMagiePU").createEntityManager();
             em.getTransaction().begin();
-            Carte carteJR = em.find(Carte.class,joueurID);
+            Carte carteJR = em.find(Carte.class,carteId);
             em.remove(carteJR);
             em.getTransaction().commit();
             

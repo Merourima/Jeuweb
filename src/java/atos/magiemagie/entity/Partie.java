@@ -69,7 +69,16 @@ public class Partie implements Serializable {
     }
 
     
-
+    public boolean siPartieDemarre() {
+        boolean siPartieDemarre = false;
+        for (Joueur joueur : joueurs) {
+            if(Joueur.EtatJoueur.A_LA_MAIN.equals(joueur.getEtatjoueur())) {
+                siPartieDemarre = true;
+                break;
+            }
+        }
+        return siPartieDemarre;
+    }
     
     
     @Override

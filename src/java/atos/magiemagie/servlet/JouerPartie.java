@@ -6,10 +6,11 @@
 package atos.magiemagie.servlet;
 
 import atos.magiemagie.entity.Joueur;
+import atos.magiemagie.entity.Partie;
+import atos.magiemagie.service.CarteService;
+import atos.magiemagie.service.JoueurService;
 import atos.magiemagie.service.PartieService;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,12 +24,50 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "JouerPartie", urlPatterns = {"/JouerPartie"})
 public class JouerPartie extends HttpServlet {
     private PartieService partieService = new  PartieService();
+    private CarteService carteService = new CarteService();
+    private JoueurService joueurService = new JoueurService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            Long idPartie = (Long) req.getSession().getAttribute("idPartie");
-            partieService.demarrerPartie(idPartie);
-            req.getRequestDispatcher("jouer-Partie.jsp").forward(req, resp);
-    }
+
+        Partie p = (Partie) req.getSession().getAttribute("partie");
+
+        if (!p.siPartieDemarre()) {
+            partieService.demarrerPartie(p.getId());
+           
+        }
         
+         
+        // Action
+        if(req.getParameter("actionParam")!= null){
+            if("passerTour".equals(req.getParameter("actionParam"))){
+             Joueur joueurALaMain = joueurService.determineJoueurQuiALaMainDansPArtie(p.getId());
+             carteService.distribuerCarte(joueurALaMain.getId());
+             req.getSession().setAttribute("jrAlaMain",joueurALaMain);   
+            }else if("lancerSort".equals(req.getParameter("actionParam"))){
+                //TODO
+            }
+        }
+        req.getParameterMap().remove("actionParam");
+            
+        // MAJ DE LA PARTIE
+        p = partieService.recupererLaPartie(p.getId());
+        req.getSession().setAttribute("partie", p);
+        
+        Joueur monCompte = (Joueur) req.getSession().getAttribute("moi");
+        for (Joueur jr : p.getJoueurs()) {
+            if (jr.getId().equals(monCompte.getId())) {
+                monCompte = jr;
+                break;
+            }
+        }
+        req.getSession().setAttribute("moi", monCompte);
+       
+        
+        
+//        req.getSession().setAttribute("partie",p);
+        
+        req.getRequestDispatcher("jouer-Partie.jsp").forward(req, resp);
+    }
+
 }

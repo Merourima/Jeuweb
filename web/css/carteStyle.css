@@ -1,0 +1,12 @@
+
+.plaingCards {
+	text-align: center;
+	background-color: #008800;
+	position: absolute;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-radius: 5px;
+	bottom: 1em;
+	width: 600px;
+	height: 200px;
+}

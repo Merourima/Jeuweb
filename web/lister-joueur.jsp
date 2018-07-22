@@ -10,6 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <meta http-equiv="refresh" content="10" />
         <link href="styleListePartie.css" val="text/css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet">
         <title> Liste Joueurs </title>
@@ -32,7 +33,7 @@
                         </div>
                         
                         <div class = "fullLarge ">
-                            <c:forEach items="${listeDesJoueurDePartie}" var="jr">  
+                            <c:forEach items="${partie.getJoueurs()}" var="jr">  
                                 <div class = "fullLarge design arrondi listePartie">
                                     <div class="large15 libelle">  
                                         <span> ${jr.pseudo}</span>
@@ -47,7 +48,7 @@
                         <!--?idPartie={jr.getPartie().id}-->
                         <div>
                             <a href="<c:url value="/JouerPartie"/>">
-                            <input class="btnSubmit btnSubREjoindrePartie" type="button" value="Démarrer">
+                            <input class="btnSubmit btnSubREjoindrePartie" type="button" value="Démarrer" ${partie.getJoueurs().size()>1 ? "":"hidden"} />
                             </a>
                         </div>
                         <div class = "fullLarge" >

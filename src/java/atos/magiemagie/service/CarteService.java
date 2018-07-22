@@ -26,8 +26,10 @@ public class CarteService {
     private JoueurDAO daoJr = new JoueurDAO();
     private CarteDAO daoCarte = new CarteDAO();
     
-    public void supprimerCarteJr(long joueurID){
-         daoCarte.supprimerCarte(joueurID);
+    
+    
+    public void supprimerCarteJr(long caretId){
+         daoCarte.supprimerCarte(caretId);
     }
     
     // cartes au hasard

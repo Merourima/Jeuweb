@@ -5,14 +5,9 @@
  */
 package atos.magiemagie.servlet;
 
-import atos.magiemagie.dao.PartieDAO;
-import atos.magiemagie.entity.Joueur;
 import atos.magiemagie.entity.Partie;
-import atos.magiemagie.service.JoueurService;
 import atos.magiemagie.service.PartieService;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +27,19 @@ import javax.servlet.http.HttpServletResponse;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
-        req.getRequestDispatcher("lister-joueur.jsp").forward(req, resp);
-        
+        // Récuperer la partie et vérifier si la partie démarré ou nn pour raffréchir les pages 
+        Partie p = (Partie) req.getSession().getAttribute("partie");
+        if (p == null) {
+            resp.sendRedirect("ListeDesJoueursServlet");
+        } else {
+        p = partieService.recupererLaPartie(p.getId());
+        req.getSession().setAttribute("partie", p);
+            if (p.siPartieDemarre()) {
+                resp.sendRedirect("JouerPartie");
+            } else {
+                req.getRequestDispatcher("lister-joueur.jsp").forward(req, resp);
+            }
+        }
+
     }
 }

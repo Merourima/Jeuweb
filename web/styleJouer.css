@@ -36,7 +36,7 @@ and open the template in the editor.
 }
 
 .joueurBox{
-	border-color:blue;
+	
 	border-radius: 30px;
 	border: 1px solid #fcc245;
 	float: left;
@@ -47,16 +47,23 @@ and open the template in the editor.
 	padding-bottom: 30px;
 
 }
+.carterBox{
+	border-color:blue;
+	border-radius: 30px;
+	border: 1px solid #fcc245;
+	float: left;
+	width: 15%;
+	text-align: center;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
 .avatar img{
 	border-radius: 50%;
-	border: 1px solid blue;
+	border: 1px solid ;
 	width: 100px !important;
 	height: 100px;
 }
 
-.joueurBox:hover{
-	transform: scale(1,2);
-}
 .libellé{
 	font-size: 25px;
 	font-style: italic;

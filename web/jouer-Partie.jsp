@@ -11,7 +11,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link href="styleJouer.css" val="text/css" rel="stylesheet">
+         <meta http-equiv="refresh" content="10" />
         <link href="styleListePartie.css" val="text/css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet">
 	<title></title>
@@ -31,18 +31,21 @@
                     <div class = "fullLarge design">
                         
                         <div class = "fullLarge ">
-                            <c:forEach items="${listeDesJoueurDePartie}" var="jr">
-                                <c:if test="${jr.id != moi.id}" >
+                            <c:forEach items="${partie.getJoueurs()}" var="jrPartie">
+                                <c:if test="${jrPartie.id != moi.id}" >
                                 <div class=" avatar joueurBox">  
                                     <table>
                                         <tr>
-                                            <td><img  src="image/avatar/${jr.avatar}.jpeg" alt="Avatar"></td>
+                                            <td><img  src="image/avatar/${jrPartie.avatar}.jpeg" alt="Avatar"></td>
                                         </tr>
                                         <tr>
-                                            <td class="libellé"><label>${jr.pseudo}</label></td>
+                                            <td class="libelle"><span>${jrPartie.pseudo}</label></td>
                                         </tr>
                                         <tr>
-                                            <td  class="libellé"><label>${jr.getCartes().size()} Cartes</label></td>
+                                            <td  class="libelle"><span>${jrPartie.getCartes().size()} Cartes</span></td>
+                                        </tr>
+                                         <tr>
+                                            <td class="libelle"><span>${jrPartie.getEtatjoueur()}</label></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -52,25 +55,43 @@
                         
                         <div class = "fullLarge" >
                             <div class = "fullLarge ">
-                                <a> <input class="floatRight" type="button" value="Lancer Sort"></a><br>
+                                <a href="<c:url value="/JouerPartie?actionParam=lancerSort"/>">  
+                                    <input class="floatRight" type="button" value="Lancer Sort" ${moi.getEtatjoueur().name() == "A_LA_MAIN" ? "": "disabled"}>
+                                </a><br>
                             </div>
                             <div class = "fullLarge ">
-                                <a> <input class="floatRight" type="button" value="Passer Tour"></a>
+                                <a href="<c:url value="/JouerPartie?actionParam=passerTour"/>"> 
+                                    <input class="floatRight" type="button" value="Passer Tour" ${moi.getEtatjoueur().name() == "A_LA_MAIN" ? "": "disabled"}></a>
                             </div>
 
                         </div>
                         
-                        <div class="fullLarge">
-                                <div class="large5 avatar libelle">
-                                    <table>
-                                        <tr>
-                                            <td><img  src="image/avatar/${moi.avatar}.jpeg" alt="Avatar" style="width:200px"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="libelle"><label>${moi.pseudo}</label></td>
-                                        </tr>
-                                    </table>
-                                </div>
+                        <div class="fullLarge design">
+                            <div class=" avatar joueurBox">
+                                <table>
+                                    <tr>
+                                        <td><img  src="image/avatar/${moi.avatar}.jpeg" alt="Avatar" style="width:200px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="libelle"><span>Moi</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td  class="libelle"><span>${moi.getCartes().size()} Cartes</span></td>
+                                    </tr>
+                                    <tr>
+                                            <td class="libelle"><span>${moi.getEtatjoueur()}</label></td>
+                                     </tr>
+                                </table>
+                            </div>
+                                    <div class="large80pppp">
+                                    <c:forEach items="${moi.getCartes()}" var="carte">
+                                        <div class="carteBox">
+                                                <span>
+                                                    ${carte.getTypeIngredient()}
+                                                </span>
+                                        </div>    
+                                    </c:forEach> 
+                                 </div>
                         </div>
 
                         <div class = "fullLarge" >

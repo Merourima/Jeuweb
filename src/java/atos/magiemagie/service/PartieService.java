@@ -27,6 +27,11 @@ public class PartieService {
     private CarteService carteservice = new CarteService();
     Scanner scan = new Scanner(System.in);
     
+    public Partie recupererLaPartie(long idPartie){
+    
+            return partiedao.rechercherParID(idPartie);
+    }
+    
     // *****************          Déroulement des sort      ***********************
     public long choisirUnJoueur(Joueur joueurAct) {
         Partie partie = joueurAct.getPartie();

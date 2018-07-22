@@ -31,6 +31,7 @@ public class LoginServlet extends HttpServlet {
     private JoueurService joueurservice = new JoueurService();
     private PartieService joueurPartie = new  PartieService();
     private PartieDAO partiedao = new PartieDAO();
+    private PartieService partieservice = new PartieService();
     private CarteService joueurCarte= new  CarteService();
     
     @Override
@@ -48,20 +49,19 @@ public class LoginServlet extends HttpServlet {
         req.getSession().setAttribute("moi", joueur);
         
         
-        if (joueur.getCartes().size() != 0) {
+        if (joueur.getCartes() != null && !(joueur.getCartes().isEmpty()) ) {
             for (int i = 0; i < joueur.getCartes().size(); i++) {
-                joueurCarte.supprimerCarteJr(joueur.getId());
+                joueurCarte.supprimerCarteJr(joueur.getCartes().get(i).getId());
 
             }
         }
         
-        Partie p = partiedao.rechercherParID(idPartie);
-        List<Joueur> jrDeLaPartie = p.getJoueurs();
-        req.getSession().setAttribute("listeDesJoueurDePartie", jrDeLaPartie);
+        Partie p = partieservice.recupererLaPartie(idPartie);
+        req.getSession().setAttribute("partie", p);
         
         
         // ?????????????????????  Tester avant si nbrJR > 2  ???????????????????
-        resp.sendRedirect("lister-joueur.jsp");
+        resp.sendRedirect("ListeDesJoueursServlet");
     }
     
     @Override

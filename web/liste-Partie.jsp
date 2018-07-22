@@ -12,6 +12,7 @@
     <head>
         <link >
         <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="10" />
         <title> Liste Des Parties </title>
         <link href="styleListePartie.css" type="text/css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet">
@@ -36,7 +37,7 @@
                         <div class="large60 design libelle floatRight">
                             <form method="post" action="listePartieServlet">
                                 <div class="sameLine"><span> Créer une partie </span></div>
-                                <div class="sameLine"><input  type="text" name="nomPartie" placeholder="Nom de la partie"></div>
+                                <div class="sameLine"><input  type="text" name="nomPartie" placeholder="Nom de la partie" required="Entrez un nom pour la partie"></div>
                                 <div class="sameLine"><input type="submit" value="Créer"></div>
                             </form>
 
